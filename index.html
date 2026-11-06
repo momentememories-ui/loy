@@ -143,9 +143,6 @@
             50% { transform: translateX(-50%) scale(1.15); }
         }
 
-        /* 
-          จุดที่แก้ไข: ขยับ top ลงมาอีกนิดเดียวจากเดิม (-110px เป็น -100px) 
-        */
         .couple-photo {
             position: absolute;
             top: -100px; 
@@ -168,6 +165,31 @@
         @keyframes enticingPulse {
             0%, 100% { transform: translateX(-50%) scale(1); }
             50% { transform: translateX(-50%) scale(1.06); }
+        }
+
+        /* กล่องข้อความแนะนำให้แตะรูป */
+        .hint-text-box {
+            position: absolute;
+            top: -145px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 6px 16px;
+            border-radius: 15px;
+            border: 2px solid #ff69b4;
+            color: #d81b60;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(216, 27, 96, 0.3);
+            white-space: nowrap;
+            display: none;
+            z-index: 30;
+            animation: bounceHint 1s infinite ease-in-out;
+        }
+
+        @keyframes bounceHint {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-5px); }
         }
 
         .modal-overlay {
@@ -355,11 +377,51 @@
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(216, 27, 96, 0.4);
         }
+
+        /* หน้าต่างเริ่มต้นสำหรับแตะเพื่อเริ่มเพลง */
+        .start-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 300;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            cursor: pointer;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .start-overlay h2 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .start-overlay p {
+            color: #ffb6c1;
+            font-size: 1rem;
+            background: rgba(255, 105, 180, 0.2);
+            padding: 10px 25px;
+            border-radius: 30px;
+            border: 2px solid #ff69b4;
+            animation: pulse 1.2s infinite ease-in-out;
+        }
     </style>
 </head>
 <body>
 
-    <audio id="bgMusic" src="song.mp3" loop autoplay></audio>
+    <audio id="bgMusic" src="song.mp3" loop></audio>
+
+    <!-- หน้าต่างเริ่มต้นแตะหน้าจอเพื่อเริ่มเพลง -->
+    <div class="start-overlay" id="startOverlay" onclick="startExperience()">
+        <h2>🪷 Loy Krathong Season ✨</h2>
+        <p>แตะหน้าจอเพื่อเริ่มเพลง ❤️</p>
+    </div>
 
     <div class="mobile-container">
         <div class="ui-header" id="uiHeader">
@@ -370,6 +432,7 @@
 
         <div class="giant-krathong-container" id="giantContainer">
             <div class="giant-krathong" id="giantKrathong">
+                <div class="hint-text-box" id="hintTextBox">ลองแตะที่รูปของเราดูสิ 👆</div>
                 <img src="nong.png" alt="Question" class="question-mark" id="questionMark" onerror="this.style.background='#ffb6c1';this.style.borderRadius='50%';">
                 <img src="photo.png" alt="Couple Photo" class="couple-photo" id="couplePhoto">
             </div>
@@ -400,11 +463,12 @@
 
     <script>
         const bgMusic = document.getElementById('bgMusic');
-        document.body.addEventListener('click', () => {
-            if (bgMusic.paused) {
-                bgMusic.play().catch(e => {});
-            }
-        }, { once: true });
+        const startOverlay = document.getElementById('startOverlay');
+
+        function startExperience() {
+            bgMusic.play().catch(e => {});
+            startOverlay.style.display = 'none';
+        }
 
         function playPopSound() {
             try {
@@ -435,6 +499,7 @@
         const giantContainer = document.getElementById('giantContainer');
         const questionMark = document.getElementById('questionMark');
         const couplePhoto = document.getElementById('couplePhoto');
+        const hintTextBox = document.getElementById('hintTextBox');
         const puzzleModal = document.getElementById('puzzleModal');
         const fireworksContainer = document.getElementById('fireworksContainer');
         const wishModal = document.getElementById('wishModal');
@@ -632,6 +697,7 @@
                 puzzleModal.style.display = 'none';
                 questionMark.style.display = 'none';
                 couplePhoto.style.display = 'block';
+                hintTextBox.style.display = 'block'; // แสดงข้อความแนะนำให้แตะรูป
                 startAmbientFireworks();
             }, 4000);
         }
@@ -707,10 +773,11 @@
             }, 1500);
         }
 
-        const wishMessage = "สุขสันต์วันลอยกระทงนะคะคนดี<br><br>ขอให้กระทงนี้และแสงพลุนี้<br>นำพาความสุข ความรัก และเรื่องราวดีๆ<br>มาให้เราได้จับมือ<br>อยู่เคียงข้างกันแบบนี้ตลอดไป<br><br>รักเธอที่สุดเลยนะ ❤️";
+        const wishMessage = "สุขสันต์วันลอยกระทงนะคะคนดี\n\nขอให้กระทงนี้และแสงพลุนี้\nนำพาความสุข ความรัก และเรื่องราวดีๆ\nมาให้เราได้จับมือ\nอยู่เคียงข้างกันแบบนี้ตลอดไป\n\nรักเธอที่สุดเลยนะ ❤️";
         let isTypingStarted = false;
 
         couplePhoto.addEventListener('click', () => {
+            hintTextBox.style.display = 'none'; // ซ่อนข้อความแนะนำเมื่อกดที่รูปแล้ว
             wishModal.style.display = 'flex';
             if (!isTypingStarted) {
                 isTypingStarted = true;
