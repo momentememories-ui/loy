@@ -48,7 +48,7 @@
             height: 70%;
             overflow: hidden;
             pointer-events: auto;
-            background: linear-gradient(to bottom, rgba(13, 27, 42, 0.2), rgba(27, 38, 59, 0.6));
+            background: linear-gradient(to bottom, rgba(13, 27, 42, 0.1), rgba(27, 38, 59, 0.5));
         }
 
         /* ส่วนหัว UI คะแนน */
@@ -92,17 +92,16 @@
             filter: drop-shadow(0 5px 5px rgba(0,0,0,0.4));
         }
 
-        /* หากยังไม่มีรูป ให้แสดงวงกลมจำลองชั่วคราวเพื่อให้เห็นกระทง */
         .floating-krathong.no-image {
             background: radial-gradient(circle, #ff9800, #d84315);
             border-radius: 50%;
             border: 3px solid #ffeb3b;
         }
 
-        /* กระทงใหญ่ตรงกลาง */
+        /* กระทงใหญ่ตรงกลาง (ขยายใหญ่ขึ้นอีก 30% และขยับลงล่าง) */
         .giant-krathong-container {
             position: absolute;
-            top: 52%;
+            top: 58%;
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
@@ -117,31 +116,31 @@
         }
 
         .giant-krathong {
-            width: 260px;
-            height: 260px;
+            width: 338px; /* ขยายจากเดิม 260px ประมาณ 30% */
+            height: 338px;
             background-image: url('กระทง.png');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
             position: relative;
             margin: 0 auto;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
+            filter: drop-shadow(0 12px 20px rgba(0,0,0,0.6));
         }
 
         .giant-krathong.no-image {
             background: radial-gradient(circle, #ffa726, #e65100);
             border-radius: 50%;
-            border: 5px solid #ffeb3b;
+            border: 6px solid #ffeb3b;
         }
 
-        /* เครื่องหมายคำถามบนกระทงใหญ่ */
+        /* เครื่องหมายคำถามบนกระทงใหญ่ (ขยับลงมาตามกระทง) */
         .question-mark {
             position: absolute;
-            top: 10%;
+            top: 18%;
             left: 50%;
             transform: translateX(-50%);
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             animation: pulse 1.2s infinite ease-in-out;
             cursor: pointer;
             z-index: 25;
@@ -153,38 +152,38 @@
             50% { transform: translateX(-50%) scale(1.15); }
         }
 
-        /* รูปคู่บนกระทงใหญ่ (ขยายใหญ่ขึ้น ไม่มีกรอบวงกลม) */
+        /* รูปคู่บนกระทงใหญ่ (ขยายใหญ่ขึ้น และมีแอนิเมชันเด้งดึ๋งล่อใจ) */
         .couple-photo {
             position: absolute;
-            top: 30%;
+            top: 38%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 140px;
-            height: 140px;
+            width: 170px;
+            height: 170px;
             object-fit: cover;
-            border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
             display: none;
             cursor: pointer;
             z-index: 25;
-            border: 3px solid rgba(255,255,255,0.9);
-            animation: popUpPhoto 0.8s ease forwards;
+            border: 4px solid rgba(255,255,255,0.95);
+            animation: enticingPulse 1.5s infinite ease-in-out;
         }
 
-        @keyframes popUpPhoto {
-            0% { transform: translate(-50%, -50%) scale(0); }
-            100% { transform: translate(-50%, -50%) scale(1); }
+        @keyframes enticingPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.08); box-shadow: 0 0 25px rgba(255, 235, 59, 0.8); }
         }
 
-        /* หน้าต่าง Modal จิ๊กซอว์ */
+        /* หน้าต่าง Modal จิ๊กซอว์ดีไซน์ใหม่ ทันสมัย */
         .modal-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(11, 19, 43, 0.85);
-            backdrop-filter: blur(5px);
+            background: rgba(11, 19, 43, 0.88);
+            backdrop-filter: blur(8px);
             z-index: 100;
             display: none;
             justify-content: center;
@@ -194,24 +193,24 @@
         }
 
         .puzzle-box {
-            background: linear-gradient(135deg, #ffffff, #fff3e0);
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255, 243, 224, 0.95));
             padding: 20px;
-            border-radius: 24px;
+            border-radius: 28px;
             text-align: center;
             width: 100%;
-            max-width: 350px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            max-width: 360px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             border: 3px solid #ffb74d;
         }
 
         .puzzle-box h2 {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #d84315;
             margin-bottom: 5px;
         }
 
         .puzzle-box p {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #666;
             margin-bottom: 15px;
         }
@@ -219,13 +218,13 @@
         .puzzle-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 4px;
-            width: 300px;
-            height: 300px;
+            gap: 6px;
+            width: 312px;
+            height: 312px;
             margin: 0 auto 15px auto;
-            background: #ffe0b2;
-            padding: 4px;
-            border-radius: 12px;
+            background: rgba(255, 152, 0, 0.2);
+            padding: 8px;
+            border-radius: 16px;
             border: 2px solid #ff9800;
         }
 
@@ -234,43 +233,96 @@
             height: 96px;
             background-image: url('photo1.jpg');
             background-size: 288px 288px;
-            cursor: pointer;
-            border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            cursor: grab;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+            transition: transform 0.1s, box-shadow 0.1s;
         }
 
-        .puzzle-piece.selected {
-            border: 3px dashed #d84315;
-            transform: scale(0.95);
+        .puzzle-piece:active {
+            cursor: grabbing;
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+            z-index: 10;
         }
 
-        /* เอฟเฟกต์โคมลอยฉลอง */
-        .celebration-overlay {
+        .puzzle-piece.dragging {
+            opacity: 0.5;
+        }
+
+        /* แสดงภาพเต็มเมื่อต่อจิ๊กซอว์เสร็จใน Modal */
+        .completed-preview {
+            width: 312px;
+            height: 312px;
+            background-image: url('photo1.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 16px;
+            margin: 0 auto 15px auto;
+            border: 3px solid #4caf50;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            display: none;
+        }
+
+        /* พลุเฉลิมฉลองสมจริง */
+        .fireworks-container {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 90;
+            z-index: 110;
             display: none;
             overflow: hidden;
         }
 
-        .floating-lantern {
+        .firework {
             position: absolute;
-            width: 35px;
-            height: 55px;
-            background: rgba(255, 152, 0, 0.9);
-            border-radius: 20px 20px 10px 10px;
-            animation: flyUpLantern 4s linear infinite;
-            box-shadow: 0 0 15px #ff9800;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #fff;
+            animation: explode 1s ease-out forwards;
         }
 
-        @keyframes flyUpLantern {
-            0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
-            20% { opacity: 1; }
-            100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
+        @keyframes explode {
+            0% { transform: scale(0); opacity: 1; }
+            50% { opacity: 1; }
+            100% { transform: scale(25); opacity: 0; }
+        }
+
+        /* โคมลอยสมจริง (แทนที่แบบเดิม) */
+        .realistic-lantern {
+            position: absolute;
+            width: 50px;
+            height: 75px;
+            background: radial-gradient(circle at 35% 35%, #ffeb3b, #ff9800 60%, #e65100);
+            border-radius: 25px 25px 15px 15px;
+            box-shadow: 0 0 25px #ff9800, inset 0 -5px 10px rgba(0,0,0,0.3);
+            animation: flyUpRealistic 5s linear infinite;
+            z-index: 90;
+        }
+
+        /* เปลวไฟใต้โคม */
+        .realistic-lantern::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 10px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ffeb3b, 0 0 20px #ff5722;
+        }
+
+        @keyframes flyUpRealistic {
+            0% { transform: translateY(105vh) scale(0.7) rotate(-2deg); opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { transform: translateY(-120px) scale(1.3) rotate(3deg); opacity: 0; }
         }
 
         /* กล่องข้อความอธิษฐานตรงกลางจอ */
@@ -353,17 +405,25 @@
             </div>
         </div>
 
-        <!-- หน้าต่างจิ๊กซอว์ -->
+        <!-- หน้าต่างจิ๊กซอว์ดีไซน์ใหม่ -->
         <div class="modal-overlay" id="puzzleModal">
             <div class="puzzle-box">
-                <h2>🧩 ต่อจิ๊กซอว์สื่อรัก</h2>
-                <p>สลับชิ้นส่วนภาพให้ถูกต้องเพื่อเปิดกระทงเซอร์ไพรส์!</p>
-                <div class="puzzle-grid" id="puzzleGrid"></div>
+                <div id="puzzleContentArea">
+                    <h2>🧩 ต่อจิ๊กซอว์สื่อรัก</h2>
+                    <p>ลากชิ้นส่วนภาพสลับตำแหน่งกันเพื่อเปิดกระทงเซอร์ไพรส์!</p>
+                    <div class="puzzle-grid" id="puzzleGrid"></div>
+                </div>
+                <!-- ภาพเต็มเมื่อต่อสำเร็จ -->
+                <div class="completed-preview" id="completedPreview"></div>
+                <h3 id="successText" style="color: #4caf50; display: none; margin-top: 10px;">🎉 ต่อภาพสำเร็จแล้ว! เย้~</h3>
             </div>
         </div>
 
-        <!-- โคมลอยฉลอง -->
-        <div class="celebration-overlay" id="celebrationOverlay"></div>
+        <!-- พลุเฉลิมฉลอง -->
+        <div class="fireworks-container" id="fireworksContainer"></div>
+
+        <!-- โคมลอยสมจริงฉลองฉากหลัง -->
+        <div class="celebration-overlay" id="celebrationOverlay" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:10; display:none; overflow:hidden;"></div>
 
         <!-- กล่องข้อความอธิษฐาน -->
         <div class="wish-modal" id="wishModal">
@@ -376,6 +436,30 @@
     </div>
 
     <script>
+        // ระบบเสียง Pop เอฟเฟกต์ตอนกดเก็บกระทง (Web Audio API)
+        function playPopSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.1);
+                
+                gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.1);
+            } catch(e) {
+                // บราวเซอร์บล็อกเสียงอัตโนมัติหากไม่มีการมีปฏิสัมพันธ์ก่อนหน้า
+            }
+        }
+
         let score = 0;
         const targetScore = 20;
         const waterSection = document.getElementById('waterSection');
@@ -385,6 +469,7 @@
         const questionMark = document.getElementById('questionMark');
         const couplePhoto = document.getElementById('couplePhoto');
         const puzzleModal = document.getElementById('puzzleModal');
+        const fireworksContainer = document.getElementById('fireworksContainer');
         const celebrationOverlay = document.getElementById('celebrationOverlay');
         const wishModal = document.getElementById('wishModal');
         const typedText = document.getElementById('typedText');
@@ -398,7 +483,6 @@
             const krathong = document.createElement('div');
             krathong.classList.add('floating-krathong');
             
-            // เช็คว่าโหลดรูปกระทง.png ได้ไหม ถ้าไม่ได้ให้ใส่คลาสสำรอง
             const testImg = new Image();
             testImg.src = 'กระทง.png';
             testImg.onerror = () => krathong.classList.add('no-image');
@@ -424,6 +508,7 @@
 
             krathong.addEventListener('click', (e) => {
                 e.stopPropagation();
+                playPopSound(); // เล่นเสียงป๊อปตอนกด
                 score++;
                 scoreText.innerText = `เก็บกระทง: ${score} / ${targetScore}`;
                 clearInterval(moveInterval);
@@ -435,7 +520,7 @@
             });
         }
 
-        spawnInterval = setInterval(spawnKrathong, 700);
+        spawnInterval = setInterval(spawnKrathong, 650);
 
         function endMinigame() {
             clearInterval(spawnInterval);
@@ -443,7 +528,6 @@
             uiHeader.style.display = 'none';
             giantContainer.style.display = 'block';
 
-            // ตรวจสอบรูปกระทงใหญ่
             const testGiant = new Image();
             testGiant.src = 'กระทง.png';
             testGiant.onerror = () => document.getElementById('giantKrathong').classList.add('no-image');
@@ -452,12 +536,16 @@
         // 2. เปิดเกมจิ๊กซอว์
         questionMark.addEventListener('click', () => {
             puzzleModal.style.display = 'flex';
+            document.getElementById('puzzleGrid').style.display = 'grid';
+            document.getElementById('completedPreview').style.display = 'none';
+            document.getElementById('successText').style.display = 'none';
             initPuzzle();
         });
 
+        // 3. ระบบจิ๊กซอว์แบบลากวาง (Drag & Drop) ไม่บีบรูป
         let puzzlePieces = [0, 1, 2, 3, 4, 5, 6, 7, 8];
         let currentOrder = [...puzzlePieces];
-        let selectedIndex = null;
+        let draggedIndex = null;
 
         function isSorted(arr) {
             return arr.every((val, i) => val === puzzlePieces[i]);
@@ -477,29 +565,58 @@
             currentOrder.forEach((pieceIndex, currentIndex) => {
                 const piece = document.createElement('div');
                 piece.classList.add('puzzle-piece');
+                piece.setAttribute('draggable', 'true');
                 
                 const x = (pieceIndex % 3) * 96;
                 const y = Math.floor(pieceIndex / 3) * 96;
                 piece.style.backgroundPosition = `-${x}px -${y}px`;
+                piece.dataset.index = currentIndex;
 
+                // Event สำหรับ Drag & Drop (รองรับทั้งเมาส์และมือถือ)
+                piece.addEventListener('dragstart', (e) => {
+                    draggedIndex = currentIndex;
+                    piece.classList.add('dragging');
+                });
+
+                piece.addEventListener('dragend', () => {
+                    piece.classList.remove('dragging');
+                });
+
+                piece.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                });
+
+                piece.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    const targetIndex = parseInt(piece.dataset.index);
+                    if (draggedIndex !== null && draggedIndex !== targetIndex) {
+                        // สลับตำแหน่ง
+                        let temp = currentOrder[draggedIndex];
+                        currentOrder[draggedIndex] = currentOrder[targetIndex];
+                        currentOrder[targetIndex] = temp;
+                        renderPuzzle();
+
+                        // ตรวจสอบความถูกต้อง
+                        if (isSorted(currentOrder)) {
+                            onPuzzleCompleted();
+                        }
+                    }
+                });
+
+                // รองรับการทัชสกรีนมือถืออย่างง่ายด้วย Click สลับเผื่อบางเครื่อง
                 piece.addEventListener('click', () => {
-                    if (selectedIndex === null) {
-                        selectedIndex = currentIndex;
-                        piece.classList.add('selected');
+                    if (draggedIndex === null) {
+                        draggedIndex = currentIndex;
+                        piece.style.border = '3px solid #ff5722';
                     } else {
-                        let temp = currentOrder[selectedIndex];
-                        currentOrder[selectedIndex] = currentOrder[currentIndex];
+                        let temp = currentOrder[draggedIndex];
+                        currentOrder[draggedIndex] = currentOrder[currentIndex];
                         currentOrder[currentIndex] = temp;
-                        selectedIndex = null;
+                        draggedIndex = null;
                         renderPuzzle();
 
                         if (isSorted(currentOrder)) {
-                            setTimeout(() => {
-                                puzzleModal.style.display = 'none';
-                                triggerCelebration();
-                                questionMark.style.display = 'none';
-                                couplePhoto.style.display = 'block';
-                            }, 350);
+                            onPuzzleCompleted();
                         }
                     }
                 });
@@ -508,14 +625,48 @@
             });
         }
 
-        // 3. โคมลอยฉลอง
-        function triggerCelebration() {
+        function onPuzzleCompleted() {
+            // ซ่อนตาราง แสดงภาพเต็มและพลุ
+            document.getElementById('puzzleGrid').style.display = 'none';
+            document.getElementById('completedPreview').style.display = 'block';
+            document.getElementById('successText').style.display = 'block';
+            
+            triggerFireworks();
+            triggerRealisticLanterns();
+
+            setTimeout(() => {
+                puzzleModal.style.display = 'none';
+                questionMark.style.display = 'none';
+                couplePhoto.style.display = 'block';
+            }, 2500);
+        }
+
+        // พลุเฉลิมฉลอง
+        function triggerFireworks() {
+            fireworksContainer.style.display = 'block';
+            const colors = ['#ffeb3b', '#ff4081', '#00e5ff', '#76ff03', '#ff9800'];
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    const fw = document.createElement('div');
+                    fw.classList.add('firework');
+                    fw.style.left = (20 + Math.random() * 60) + '%';
+                    fw.style.top = (20 + Math.random() * 50) + '%';
+                    fw.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    fireworksContainer.appendChild(fw);
+                    setTimeout(() => fw.remove(), 1000);
+                }, i * 80);
+            }
+            setTimeout(() => { fireworksContainer.style.display = 'none'; fireworksContainer.innerHTML = ''; }, 3000);
+        }
+
+        // โคมลอยสมจริงฉลองฉากหลัง
+        function triggerRealisticLanterns() {
             celebrationOverlay.style.display = 'block';
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 12; i++) {
                 const lantern = document.createElement('div');
-                lantern.classList.add('floating-lantern');
-                lantern.style.left = Math.random() * 100 + '%';
-                lantern.style.animationDuration = (3 + Math.random() * 2) + 's';
+                lantern.classList.add('realistic-lantern');
+                lantern.style.left = Math.random() * 90 + '%';
+                lantern.style.animationDuration = (4 + Math.random() * 2) + 's';
                 lantern.style.animationDelay = (Math.random() * 1.5) + 's';
                 celebrationOverlay.appendChild(lantern);
             }
