@@ -377,51 +377,11 @@
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(216, 27, 96, 0.4);
         }
-
-        /* หน้าต่างเริ่มต้นสำหรับแตะเพื่อเริ่มเพลง */
-        .start-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 300;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            cursor: pointer;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .start-overlay h2 {
-            color: #fff;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .start-overlay p {
-            color: #ffb6c1;
-            font-size: 1rem;
-            background: rgba(255, 105, 180, 0.2);
-            padding: 10px 25px;
-            border-radius: 30px;
-            border: 2px solid #ff69b4;
-            animation: pulse 1.2s infinite ease-in-out;
-        }
     </style>
 </head>
 <body>
 
-    <audio id="bgMusic" src="song.mp3" loop></audio>
-
-    <!-- หน้าต่างเริ่มต้นแตะหน้าจอเพื่อเริ่มเพลง -->
-    <div class="start-overlay" id="startOverlay" onclick="startExperience()">
-        <h2>🪷 Loy Krathong Season ✨</h2>
-        <p>แตะหน้าจอเพื่อเริ่มเพลง ❤️</p>
-    </div>
+    <audio id="bgMusic" src="song.mp3" loop autoplay></audio>
 
     <div class="mobile-container">
         <div class="ui-header" id="uiHeader">
@@ -463,12 +423,11 @@
 
     <script>
         const bgMusic = document.getElementById('bgMusic');
-        const startOverlay = document.getElementById('startOverlay');
-
-        function startExperience() {
-            bgMusic.play().catch(e => {});
-            startOverlay.style.display = 'none';
-        }
+        document.body.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play().catch(e => {});
+            }
+        }, { once: true });
 
         function playPopSound() {
             try {
@@ -773,7 +732,7 @@
             }, 1500);
         }
 
-        const wishMessage = "สุขสันต์วันลอยกระทงนะคะคนดี\n\nขอให้กระทงนี้และแสงพลุนี้\nนำพาความสุข ความรัก และเรื่องราวดีๆ\nมาให้เราได้จับมือ\nอยู่เคียงข้างกันแบบนี้ตลอดไป\n\nรักเธอที่สุดเลยนะ ❤️";
+        const wishMessage = "สุขสันต์วันลอยกระทงนะคะคนดี<br><br>ขอให้กระทงนี้และแสงพลุนี้<br>นำพาความสุข ความรัก และเรื่องราวดีๆ<br>มาให้เราได้จับมือ<br>อยู่เคียงข้างกันแบบนี้ตลอดไป<br><br>รักเธอที่สุดเลยนะ ❤️";
         let isTypingStarted = false;
 
         couplePhoto.addEventListener('click', () => {
