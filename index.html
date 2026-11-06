@@ -13,33 +13,31 @@
             font-family: 'Prompt', sans-serif;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation; /* ป้องกันพฤติกรรมดึงหน้าจอแท็บเล็ต/มือถือ */
+            touch-action: manipulation;
         }
 
-        body {
+        body, html {
             width: 100vw;
             height: 100vh;
-            background-color: #ffe4e1;
+            background-color: #000;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* โครงสร้างหน้าจอมือถือแนวตั้ง โทนชมพูขาว */
+        /* โครงสร้างหน้าจอมือถือแนวตั้ง ขยายเต็มจอ 100% */
         .mobile-container {
-            width: 100%;
+            width: 100vw;
+            height: 100vh;
             max-width: 430px;
-            height: 100%;
-            max-height: 932px;
+            max-height: 100vh;
             background: #fff0f5 url('พื้นหลัง.png') no-repeat center center;
             background-size: cover;
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 0 20px rgba(255, 182, 193, 0.5);
-            border: 4px solid #ffb6c1;
         }
 
         /* พื้นที่น้ำ 70% ด้านล่าง */
@@ -50,10 +48,10 @@
             height: 70%;
             overflow: hidden;
             pointer-events: auto;
-            background: linear-gradient(to bottom, rgba(255, 182, 193, 0.1), rgba(255, 105, 180, 0.3));
+            background: linear-gradient(to bottom, rgba(255, 182, 193, 0.05), rgba(255, 105, 180, 0.25));
         }
 
-        /* ส่วนหัว UI คะแนน โทนชมพูขาว */
+        /* ส่วนหัว UI คะแนน */
         .ui-header {
             position: absolute;
             top: 25px;
@@ -151,38 +149,39 @@
             50% { transform: translateX(-50%) scale(1.15); }
         }
 
-        /* รูปคู่บนกระทงใหญ่ (ขยับขึ้นไปอีกประมาณ 5 ซม. ไร้กรอบ 100%) */
+        /* รูปคู่บนกระทงใหญ่ (ขยับขึ้นไปอีก ไม่มีกรอบและไม่มีแสงเรืองแสงใดๆ) */
         .couple-photo {
             position: absolute;
-            top: -45px; /* ขยับขึ้นไปด้านบนอีก 5 ซม. ตามต้องการ */
+            top: -45px;
             left: 50%;
             transform: translateX(-50%);
             width: 140px;
-            height: 248px; /* สัดส่วน 9:16 เป๊ะๆ */
+            height: 248px;
             object-fit: cover;
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(216, 27, 96, 0.4);
             display: none;
             cursor: pointer;
             z-index: 25;
-            border: none; /* ไม่มีกรอบใดๆ ทั้งสิ้น */
+            border: none;
             animation: enticingPulse 1.5s infinite ease-in-out;
         }
 
         @keyframes enticingPulse {
             0%, 100% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.05); filter: drop-shadow(0 0 15px rgba(255, 105, 180, 0.8)); }
+            50% { transform: translateX(-50%) scale(1.04); }
         }
 
-        /* หน้าต่าง Modal จิ๊กซอว์โทนชมพูขาว */
+        /* หน้าต่าง Modal จิ๊กซอว์ (พื้นหลังเบลอภาพจริง + โทนสีชมพู) */
         .modal-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 192, 203, 0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(255, 182, 193, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             z-index: 100;
             display: none;
             justify-content: center;
@@ -192,7 +191,7 @@
         }
 
         .puzzle-box {
-            background: linear-gradient(135deg, #ffffff, #fff0f5);
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255, 240, 245, 0.95));
             padding: 15px;
             border-radius: 25px;
             text-align: center;
@@ -240,27 +239,28 @@
             touch-action: none;
             transition: transform 0.1s, box-shadow 0.1s;
             position: relative;
+            border: 2px solid transparent;
         }
 
         .puzzle-piece:active {
             cursor: grabbing;
             transform: scale(1.03);
-            box-shadow: 0 5px 12px rgba(216, 27, 96, 0.4);
             z-index: 10;
         }
 
-        /* เอฟเฟกต์กรอบนำทางเวลาลากสลับจิ๊กซอว์ */
+        /* กรอบนำทางชัดเจนขณะลากสลับจิ๊กซอว์ */
         .puzzle-piece.dragging {
-            opacity: 0.8;
+            opacity: 0.85;
             border: 3px dashed #ff1493;
             box-shadow: 0 0 15px #ff69b4;
-            transform: scale(1.05);
+            transform: scale(1.06);
             z-index: 20;
         }
 
         .puzzle-piece.drag-over {
-            border: 3px solid #ff69b4;
-            background-color: rgba(255, 105, 180, 0.3);
+            border: 3px solid #ff1493;
+            background-color: rgba(255, 105, 180, 0.4);
+            box-shadow: inset 0 0 10px #ff1493;
         }
 
         /* แสดงภาพเต็มเมื่อต่อจิ๊กซอว์เสร็จ (9:16) */
@@ -277,7 +277,7 @@
             display: none;
         }
 
-        /* พลุดอกไม้ไฟสมจริง โทนชมพูขาว */
+        /* พลุดอกไม้ไฟสมจริง */
         .fireworks-container {
             position: absolute;
             top: 0;
@@ -304,7 +304,7 @@
             100% { transform: translate(var(--tx), var(--ty)) scale(0.2); opacity: 0; }
         }
 
-        /* กล่องข้อความอธิษฐานตรงกลางจอ โทนชมพูขาว */
+        /* กล่องข้อความอธิษฐานตรงกลางจอ */
         .wish-modal {
             position: absolute;
             top: 0;
@@ -313,6 +313,7 @@
             height: 100%;
             background: rgba(255, 182, 193, 0.75);
             backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             z-index: 150;
             display: none;
             justify-content: center;
@@ -386,7 +387,7 @@
             </div>
         </div>
 
-        <!-- หน้าต่างจิ๊กซอว์สัดส่วน 9:16 โทนชมพูขาว -->
+        <!-- หน้าต่างจิ๊กซอว์ พื้นหลังเบลอภาพจริงโทนชมพู -->
         <div class="modal-overlay" id="puzzleModal">
             <div class="puzzle-box">
                 <div id="puzzleContentArea">
@@ -456,6 +457,7 @@
         const typedText = document.getElementById('typedText');
 
         let spawnInterval;
+        let ambientFireworksInterval = null;
 
         function spawnKrathong() {
             if (score >= targetScore) return;
@@ -521,7 +523,7 @@
             initPuzzle();
         });
 
-        // ระบบจิ๊กซอว์ลากสลับอัตโนมัติ (แก้ไขปัญหาเด้งออก/ปิดแท็บ และเพิ่มกรอบนำทางขณะลาก)
+        // ระบบจิ๊กซอว์ลากสลับอัตโนมัติ พร้อมกรอบนำทางชัดเจน
         let puzzlePieces = [0, 1, 2, 3, 4, 5, 6, 7, 8];
         let currentOrder = [...puzzlePieces];
         let draggedIndex = null;
@@ -551,7 +553,6 @@
                 piece.style.backgroundPosition = `-${x}px -${y}px`;
                 piece.dataset.index = currentIndex;
 
-                // ป้องกันเหตุการณ์แท็บเบราว์เซอร์เด้ง/ปิด ด้วยการหยุดพฤติกรรมเริ่มต้น
                 piece.addEventListener('dragstart', (e) => {
                     draggedIndex = currentIndex;
                     piece.classList.add('dragging');
@@ -564,7 +565,7 @@
                 });
 
                 piece.addEventListener('dragover', (e) => {
-                    e.preventDefault(); // สำคัญมาก ป้องกันการเปิดไฟล์หรือปิดแท็บ
+                    e.preventDefault();
                     piece.classList.add('drag-over');
                 });
 
@@ -588,7 +589,6 @@
                     }
                 });
 
-                // รองรับระบบ Touch สำหรับมือถือ/แท็บเล็ตแบบสมบูรณ์ไร้รอยต่อ
                 let touchStartX = 0;
                 let touchStartY = 0;
 
@@ -600,7 +600,7 @@
                 }, { passive: true });
 
                 piece.addEventListener('touchmove', (e) => {
-                    e.preventDefault(); // ป้องกันการดึงหน้าจอหรือเลื่อนแท็บ
+                    e.preventDefault();
                 }, { passive: false });
 
                 piece.addEventListener('touchend', (e) => {
@@ -640,6 +640,9 @@
                 puzzleModal.style.display = 'none';
                 questionMark.style.display = 'none';
                 couplePhoto.style.display = 'block';
+                
+                // เริ่มยิงพลุต่อเนื่องตลอดเวลาที่หน้ากระทง
+                startAmbientFireworks();
             }, 4000);
         }
 
@@ -675,7 +678,44 @@
                 }, burst * 700);
             }
 
-            setTimeout(() => { fireworksContainer.style.display = 'none'; fireworksContainer.innerHTML = ''; }, 5000);
+            setTimeout(() => { 
+                if(!ambientFireworksInterval) {
+                    fireworksContainer.style.display = 'none'; 
+                }
+                fireworksContainer.innerHTML = ''; 
+            }, 5000);
+        }
+
+        // ฟังก์ชันยิงพลุต่อเนื่องตลอดเวลาที่หน้ากระทง
+        function startAmbientFireworks() {
+            fireworksContainer.style.display = 'block';
+            const colors = ['#ff69b4', '#ff1493', '#ffb6c1', '#ffffff', '#ff85a2'];
+
+            ambientFireworksInterval = setInterval(() => {
+                const startX = 20 + Math.random() * 60;
+                const startY = 20 + Math.random() * 40;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+
+                for (let i = 0; i < 30; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('firework-particle');
+                    particle.style.left = startX + '%';
+                    particle.style.top = startY + '%';
+                    particle.style.backgroundColor = color;
+                    particle.style.boxShadow = `0 0 8px ${color}`;
+
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 60 + Math.random() * 100;
+                    const tx = Math.cos(angle) * distance;
+                    const ty = Math.sin(angle) * distance;
+
+                    particle.style.setProperty('--tx', tx + 'px');
+                    particle.style.setProperty('--ty', ty + 'px');
+
+                    fireworksContainer.appendChild(particle);
+                    setTimeout(() => particle.remove(), 2000);
+                }
+            }, 2200); // ยิงทุกๆ 2.2 วินาที
         }
 
         const wishMessage = "สุขสันต์วันลอยกระทงนะคับคนดี ขอให้กระทงนี้และแสงพลุนี้ นำพาความสุข ความรัก และเรื่องราวดีๆ มาให้เราได้จับมืออยู่เคียงข้างกันแบบนี้ตลอดไป รักเธอที่สุดเลยนะ ❤️";
