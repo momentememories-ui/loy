@@ -13,31 +13,33 @@
             font-family: 'Prompt', sans-serif;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation; /* ป้องกันพฤติกรรมดึงหน้าจอแท็บเล็ต/มือถือ */
         }
 
         body {
             width: 100vw;
             height: 100vh;
-            background-color: #0b132b;
+            background-color: #ffe4e1;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* โครงสร้างหน้าจอมือถือแนวตั้ง */
+        /* โครงสร้างหน้าจอมือถือแนวตั้ง โทนชมพูขาว */
         .mobile-container {
             width: 100%;
             max-width: 430px;
             height: 100%;
             max-height: 932px;
-            background: #0d1b2a url('พื้นหลัง.png') no-repeat center center;
+            background: #fff0f5 url('พื้นหลัง.png') no-repeat center center;
             background-size: cover;
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            box-shadow: 0 0 20px rgba(255, 182, 193, 0.5);
+            border: 4px solid #ffb6c1;
         }
 
         /* พื้นที่น้ำ 70% ด้านล่าง */
@@ -48,28 +50,30 @@
             height: 70%;
             overflow: hidden;
             pointer-events: auto;
-            background: linear-gradient(to bottom, rgba(13, 27, 42, 0.1), rgba(27, 38, 59, 0.5));
+            background: linear-gradient(to bottom, rgba(255, 182, 193, 0.1), rgba(255, 105, 180, 0.3));
         }
 
-        /* ส่วนหัว UI คะแนน (เอาหัวข้อออกเหลือแค่คะแนน) */
+        /* ส่วนหัว UI คะแนน โทนชมพูขาว */
         .ui-header {
             position: absolute;
             top: 25px;
             width: 100%;
             text-align: center;
             z-index: 10;
-            color: #fff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+            color: #d81b60;
+            text-shadow: 0 1px 3px rgba(255,255,255,0.8);
         }
 
         .ui-header p {
             font-size: 1rem;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(255, 255, 255, 0.9);
             display: inline-block;
             padding: 8px 22px;
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: #ffeb3b;
+            border: 2px solid #ffb6c1;
+            color: #d81b60;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(255, 182, 193, 0.4);
         }
 
         /* กระทงเล็กที่ลอยจากซ้ายไปขวา */
@@ -84,13 +88,13 @@
             cursor: pointer;
             transform: translate(-50%, -50%);
             z-index: 5;
-            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.4));
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
         }
 
         .floating-krathong.no-image {
-            background: radial-gradient(circle, #ff9800, #d84315);
+            background: radial-gradient(circle, #ff69b4, #c71585);
             border-radius: 50%;
-            border: 3px solid #ffeb3b;
+            border: 3px solid #fff;
         }
 
         /* กระทงใหญ่ตรงกลาง */
@@ -119,13 +123,13 @@
             background-position: center;
             position: relative;
             margin: 0 auto;
-            filter: drop-shadow(0 12px 20px rgba(0,0,0,0.6));
+            filter: drop-shadow(0 12px 20px rgba(0,0,0,0.4));
         }
 
         .giant-krathong.no-image {
-            background: radial-gradient(circle, #ffa726, #e65100);
+            background: radial-gradient(circle, #ffb6c1, #ff1493);
             border-radius: 50%;
-            border: 6px solid #ffeb3b;
+            border: 6px solid #fff;
         }
 
         /* เครื่องหมายคำถามบนกระทงใหญ่ */
@@ -147,37 +151,37 @@
             50% { transform: translateX(-50%) scale(1.15); }
         }
 
-        /* รูปคู่บนกระทงใหญ่ (ขยับขึ้นไปอีก 20% ไร้กรอบรูป 100%) */
+        /* รูปคู่บนกระทงใหญ่ (ขยับขึ้นไปอีกประมาณ 5 ซม. ไร้กรอบ 100%) */
         .couple-photo {
             position: absolute;
-            top: -15px; /* ขยับขึ้นไปด้านบนอีกตามต้องการ */
+            top: -45px; /* ขยับขึ้นไปด้านบนอีก 5 ซม. ตามต้องการ */
             left: 50%;
             transform: translateX(-50%);
             width: 140px;
             height: 248px; /* สัดส่วน 9:16 เป๊ะๆ */
             object-fit: cover;
-            border-radius: 14px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(216, 27, 96, 0.4);
             display: none;
             cursor: pointer;
             z-index: 25;
-            border: none; /* ไร้กรอบ */
+            border: none; /* ไม่มีกรอบใดๆ ทั้งสิ้น */
             animation: enticingPulse 1.5s infinite ease-in-out;
         }
 
         @keyframes enticingPulse {
             0%, 100% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.05); filter: drop-shadow(0 0 15px rgba(255, 235, 59, 0.8)); }
+            50% { transform: translateX(-50%) scale(1.05); filter: drop-shadow(0 0 15px rgba(255, 105, 180, 0.8)); }
         }
 
-        /* หน้าต่าง Modal จิ๊กซอว์สัดส่วน 9:16 โทนชมพูขาว ทันสมัย */
+        /* หน้าต่าง Modal จิ๊กซอว์โทนชมพูขาว */
         .modal-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(20, 10, 25, 0.88);
+            background: rgba(255, 192, 203, 0.85);
             backdrop-filter: blur(8px);
             z-index: 100;
             display: none;
@@ -188,14 +192,14 @@
         }
 
         .puzzle-box {
-            background: linear-gradient(135deg, #ffffff, #ffe4e1);
+            background: linear-gradient(135deg, #ffffff, #fff0f5);
             padding: 15px;
             border-radius: 25px;
             text-align: center;
             width: 100%;
             max-width: 340px;
-            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.3);
-            border: 4px solid #ffb6c1;
+            box-shadow: 0 15px 40px rgba(216, 27, 96, 0.25);
+            border: 4px solid #ff69b4;
         }
 
         .puzzle-box h2 {
@@ -206,7 +210,7 @@
 
         .puzzle-box p {
             font-size: 0.8rem;
-            color: #888;
+            color: #c71585;
             margin-bottom: 10px;
         }
 
@@ -219,10 +223,10 @@
             width: 270px;
             height: 480px;
             margin: 0 auto 10px auto;
-            background: rgba(255, 182, 193, 0.3);
+            background: rgba(255, 182, 193, 0.4);
             padding: 4px;
             border-radius: 14px;
-            border: 2px solid #ff69b4;
+            border: 2px solid #ff1493;
         }
 
         .puzzle-piece {
@@ -235,17 +239,28 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.15);
             touch-action: none;
             transition: transform 0.1s, box-shadow 0.1s;
+            position: relative;
         }
 
         .puzzle-piece:active {
             cursor: grabbing;
             transform: scale(1.03);
-            box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 12px rgba(216, 27, 96, 0.4);
             z-index: 10;
         }
 
+        /* เอฟเฟกต์กรอบนำทางเวลาลากสลับจิ๊กซอว์ */
         .puzzle-piece.dragging {
-            opacity: 0.4;
+            opacity: 0.8;
+            border: 3px dashed #ff1493;
+            box-shadow: 0 0 15px #ff69b4;
+            transform: scale(1.05);
+            z-index: 20;
+        }
+
+        .puzzle-piece.drag-over {
+            border: 3px solid #ff69b4;
+            background-color: rgba(255, 105, 180, 0.3);
         }
 
         /* แสดงภาพเต็มเมื่อต่อจิ๊กซอว์เสร็จ (9:16) */
@@ -257,12 +272,12 @@
             background-position: center;
             border-radius: 14px;
             margin: 0 auto 10px auto;
-            border: 3px solid #ff69b4;
-            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+            border: 3px solid #ff1493;
+            box-shadow: 0 8px 25px rgba(216, 27, 96, 0.4);
             display: none;
         }
 
-        /* พลุดอกไม้ไฟสมจริง */
+        /* พลุดอกไม้ไฟสมจริง โทนชมพูขาว */
         .fireworks-container {
             position: absolute;
             top: 0;
@@ -289,14 +304,14 @@
             100% { transform: translate(var(--tx), var(--ty)) scale(0.2); opacity: 0; }
         }
 
-        /* กล่องข้อความอธิษฐานตรงกลางจอ */
+        /* กล่องข้อความอธิษฐานตรงกลางจอ โทนชมพูขาว */
         .wish-modal {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(255, 182, 193, 0.75);
             backdrop-filter: blur(8px);
             z-index: 150;
             display: none;
@@ -306,14 +321,14 @@
         }
 
         .wish-box-center {
-            background: linear-gradient(135deg, #ffffff, #fff8e1);
+            background: linear-gradient(135deg, #ffffff, #fff0f5);
             width: 90%;
             max-width: 360px;
             padding: 25px 20px;
             border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 35px rgba(216, 27, 96, 0.3);
             text-align: center;
-            border: 4px solid #ffca28;
+            border: 4px solid #ff69b4;
             transform: scale(0.8);
             animation: popUpWish 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
@@ -323,13 +338,13 @@
         }
 
         .wish-box-center h3 {
-            color: #e65100;
+            color: #d81b60;
             font-size: 1.2rem;
             margin-bottom: 10px;
         }
 
         .wish-box-center p {
-            color: #37474f;
+            color: #880e4f;
             font-size: 0.95rem;
             line-height: 1.6;
             white-space: pre-wrap;
@@ -338,14 +353,14 @@
 
         .close-wish-btn {
             margin-top: 15px;
-            background: linear-gradient(135deg, #ff9800, #f57c00);
+            background: linear-gradient(135deg, #ff69b4, #d81b60);
             color: #fff;
             border: none;
             padding: 8px 25px;
             border-radius: 20px;
             font-size: 0.9rem;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(245,124,0,0.4);
+            box-shadow: 0 4px 10px rgba(216, 27, 96, 0.4);
         }
     </style>
 </head>
@@ -355,7 +370,7 @@
     <audio id="bgMusic" src="song.mp3" loop autoplay></audio>
 
     <div class="mobile-container">
-        <!-- ส่วนหัวแสดงคะแนนอย่างเดียว (เอาหัวข้อออกแล้ว) -->
+        <!-- ส่วนหัวแสดงคะแนน -->
         <div class="ui-header" id="uiHeader">
             <p id="scoreText">เก็บกระทง: 0 / 20</p>
         </div>
@@ -366,7 +381,7 @@
         <!-- กระทงใหญ่ตอนเก็บครบ -->
         <div class="giant-krathong-container" id="giantContainer">
             <div class="giant-krathong" id="giantKrathong">
-                <img src="nong.png" alt="Question" class="question-mark" id="questionMark" onerror="this.style.background='#ffeb3b';this.style.borderRadius='50%';">
+                <img src="nong.png" alt="Question" class="question-mark" id="questionMark" onerror="this.style.background='#ffb6c1';this.style.borderRadius='50%';">
                 <img src="photo.png" alt="Couple Photo" class="couple-photo" id="couplePhoto">
             </div>
         </div>
@@ -413,8 +428,8 @@
                 const gainNode = audioCtx.createGain();
                 
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(400, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.1);
+                osc.frequency.setValueAtTime(500, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.1);
                 
                 gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
                 gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
@@ -506,7 +521,7 @@
             initPuzzle();
         });
 
-        // ระบบจิ๊กซอว์ลากสลับอัตโนมัติ (Drag & Drop และ Touch Drag สมบูรณ์)
+        // ระบบจิ๊กซอว์ลากสลับอัตโนมัติ (แก้ไขปัญหาเด้งออก/ปิดแท็บ และเพิ่มกรอบนำทางขณะลาก)
         let puzzlePieces = [0, 1, 2, 3, 4, 5, 6, 7, 8];
         let currentOrder = [...puzzlePieces];
         let draggedIndex = null;
@@ -536,25 +551,32 @@
                 piece.style.backgroundPosition = `-${x}px -${y}px`;
                 piece.dataset.index = currentIndex;
 
-                // รองรับ Drag & Drop บน Desktop และ Mobile
+                // ป้องกันเหตุการณ์แท็บเบราว์เซอร์เด้ง/ปิด ด้วยการหยุดพฤติกรรมเริ่มต้น
                 piece.addEventListener('dragstart', (e) => {
                     draggedIndex = currentIndex;
                     piece.classList.add('dragging');
+                    e.dataTransfer.setData('text/plain', currentIndex);
                 });
 
                 piece.addEventListener('dragend', () => {
                     piece.classList.remove('dragging');
+                    document.querySelectorAll('.puzzle-piece').forEach(p => p.classList.remove('drag-over'));
                 });
 
                 piece.addEventListener('dragover', (e) => {
-                    e.preventDefault();
+                    e.preventDefault(); // สำคัญมาก ป้องกันการเปิดไฟล์หรือปิดแท็บ
+                    piece.classList.add('drag-over');
+                });
+
+                piece.addEventListener('dragleave', () => {
+                    piece.classList.remove('drag-over');
                 });
 
                 piece.addEventListener('drop', (e) => {
                     e.preventDefault();
+                    piece.classList.remove('drag-over');
                     const targetIndex = parseInt(piece.dataset.index);
                     if (draggedIndex !== null && draggedIndex !== targetIndex) {
-                        // สลับตำแหน่งช่องที่ 1 ไปช่องที่ 2 อัตโนมัติทันที
                         let temp = currentOrder[draggedIndex];
                         currentOrder[draggedIndex] = currentOrder[targetIndex];
                         currentOrder[targetIndex] = temp;
@@ -566,7 +588,7 @@
                     }
                 });
 
-                // รองรับการสัมผัสลากบนมือถือ (Touch Events) แบบลื่นไหล
+                // รองรับระบบ Touch สำหรับมือถือ/แท็บเล็ตแบบสมบูรณ์ไร้รอยต่อ
                 let touchStartX = 0;
                 let touchStartY = 0;
 
@@ -577,12 +599,15 @@
                     piece.classList.add('dragging');
                 }, { passive: true });
 
+                piece.addEventListener('touchmove', (e) => {
+                    e.preventDefault(); // ป้องกันการดึงหน้าจอหรือเลื่อนแท็บ
+                }, { passive: false });
+
                 piece.addEventListener('touchend', (e) => {
                     piece.classList.remove('dragging');
                     const touchEndX = e.changedTouches[0].clientX;
                     const touchEndY = e.changedTouches[0].clientY;
                     
-                    // หาชิ้นส่วนที่นิ้วปล่อยลงไป
                     const targetElement = document.elementFromPoint(touchEndX, touchEndY);
                     if (targetElement && targetElement.classList.contains('puzzle-piece')) {
                         const targetIndex = parseInt(targetElement.dataset.index);
@@ -620,7 +645,7 @@
 
         function triggerRealisticFireworks() {
             fireworksContainer.style.display = 'block';
-            const colors = ['#ff69b4', '#ffeb3b', '#00ffff', '#ff4500', '#ba55d3', '#ffffff'];
+            const colors = ['#ff69b4', '#ff1493', '#ffb6c1', '#ffc0cb', '#ffffff', '#ff85a2'];
             
             for (let burst = 0; burst < 5; burst++) {
                 setTimeout(() => {
