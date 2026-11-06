@@ -145,12 +145,13 @@
 
         /* 
           จุดที่แก้ไข: 
-          1. ขยับ top ขึ้นไปข้างบนอีกไม่ให้ทับกระทง (-115px) 
-          2. ลบกรอบ, เงา, และเอฟเฟกต์เรืองแสงออกทั้งหมด เหลือแค่รูปภาพล้วนๆ 
+          1. ขยับ top ลงมาอีกนิดหน่อยเพื่อให้ตำแหน่งอยู่กลางกระทงสวยงามพอดี (-95px)
+          2. เพิ่มแอนิเมชันเด้งไปมา (enticingPulse) เพื่อล่อให้คนกด
+          3. ไม่มีกรอบใดๆ ทั้งสิ้นตามต้องการ
         */
         .couple-photo {
             position: absolute;
-            top: -115px; 
+            top: -95px; 
             left: 50%;
             transform: translateX(-50%);
             width: 140px;
@@ -164,6 +165,12 @@
             box-shadow: none !important;
             filter: none !important;
             border-radius: 0 !important;
+            animation: enticingPulse 1.5s infinite ease-in-out;
+        }
+
+        @keyframes enticingPulse {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.06); }
         }
 
         .modal-overlay {
