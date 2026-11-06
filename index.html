@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>สุขสันต์วันลอยกระทง</title>
+    <title>สุขสันต์วันลอยกระทงคนสวย</title>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -12,6 +12,7 @@
             padding: 0;
             font-family: 'Prompt', sans-serif;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -39,12 +40,12 @@
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
 
-        /* พื้นที่น้ำ 80% ด้านล่าง */
+        /* พื้นที่น้ำ 70% ด้านล่าง ลอยจากซ้ายไปขวา */
         .water-section {
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 80%;
+            height: 70%;
             overflow: hidden;
             pointer-events: auto;
         }
@@ -52,7 +53,7 @@
         /* ส่วนหัว UI คะแนน */
         .ui-header {
             position: absolute;
-            top: 20px;
+            top: 25px;
             width: 100%;
             text-align: center;
             z-index: 10;
@@ -61,115 +62,122 @@
         }
 
         .ui-header h1 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin-bottom: 5px;
+            color: #ffeb3b;
         }
 
         .ui-header p {
             font-size: 1rem;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             display: inline-block;
-            padding: 5px 15px;
+            padding: 6px 18px;
             border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        /* กระทงเล็กที่ลอยมาให้เก็บ */
+        /* กระทงเล็กที่ลอยจากซ้ายไปขวา (เพิ่มความเร็ว) */
         .floating-krathong {
             position: absolute;
-            width: 70px;
-            height: 70px;
+            width: 65px;
+            height: 65px;
             background: url('กระทง.png') no-repeat center center;
             background-size: contain;
             cursor: pointer;
-            animation: floatUp 4s linear infinite;
+            animation: floatRight linear infinite;
             transform: translate(-50%, -50%);
             z-index: 5;
         }
 
-        @keyframes floatUp {
+        @keyframes floatRight {
             0% {
-                transform: translateY(0px) scale(0.9);
+                transform: translateX(0px) translateY(0px) scale(0.95);
             }
             50% {
-                transform: translateY(-15px) scale(1);
+                transform: translateX(0px) translateY(-10px) scale(1.05);
             }
             100% {
-                transform: translateY(0px) scale(0.9);
+                transform: translateX(0px) translateY(0px) scale(0.95);
             }
         }
 
-        /* กระทงใหญ่ตรงกลาง */
+        /* กระทงใหญ่ตรงกลาง (ขนาดใหญ่ขึ้นสะใจ) */
         .giant-krathong-container {
             position: absolute;
-            top: 50%;
+            top: 52%;
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
             z-index: 20;
             display: none;
-            animation: bounceIn 1s ease forwards;
+            animation: bounceIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
         @keyframes bounceIn {
             0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-            70% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
             100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
         .giant-krathong {
-            width: 220px;
-            height: 220px;
+            width: 280px;
+            height: 280px;
             background: url('กระทง.png') no-repeat center center;
             background-size: contain;
             position: relative;
             margin: 0 auto;
-            cursor: pointer;
         }
 
-        /* เครื่องหมายคำถามบนกระทงใหญ่ */
+        /* เครื่องหมายคำถามบนกระทงใหญ่ (ขยับขึ้นข้างบนอีก) */
         .question-mark {
             position: absolute;
-            top: 50%;
+            top: 15%;
             left: 50%;
-            transform: translate(-50%, -70%);
-            width: 60px;
-            height: 60px;
-            animation: pulse 1.5s infinite ease-in-out;
+            transform: translateX(-50%);
+            width: 75px;
+            height: 75px;
+            animation: pulse 1.2s infinite ease-in-out;
             cursor: pointer;
             z-index: 25;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
         }
 
         @keyframes pulse {
-            0% { transform: translate(-50%, -70%) scale(1); }
-            50% { transform: translate(-50%, -70%) scale(1.15); }
-            100% { transform: translate(-50%, -70%) scale(1); }
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.15); }
         }
 
-        /* รูปคู่บนกระทงใหญ่หลังจากต่อจิ๊กซอว์เสร็จ */
+        /* รูปคู่บนกระทงใหญ่ (ขยายใหญ่ขึ้นอีก 80% ไม่มีกรอบวงกลม) */
         .couple-photo {
             position: absolute;
-            top: 40%;
+            top: 30%;
             left: 50%;
-            transform: translate(-50%, -60%);
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            width: 140px;
+            height: 140px;
             object-fit: cover;
-            border: 4px solid #ffcc00;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
             display: none;
             cursor: pointer;
             z-index: 25;
+            border: 3px solid rgba(255,255,255,0.8);
+            animation: popUpPhoto 0.8s ease forwards;
         }
 
-        /* หน้าต่าง Modal / เกมจิ๊กซอว์ */
+        @keyframes popUpPhoto {
+            0% { transform: translate(-50%, -50%) scale(0); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        /* หน้าต่าง Modal / เกมจิ๊กซอว์สไตล์วัยรุ่นทันสมัย */
         .modal-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(11, 19, 43, 0.85);
+            backdrop-filter: blur(5px);
             z-index: 100;
             display: none;
             justify-content: center;
@@ -179,68 +187,158 @@
         }
 
         .puzzle-box {
-            background: #fff;
-            padding: 15px;
-            border-radius: 15px;
+            background: linear-gradient(135deg, #ffffff, #fff3e0);
+            padding: 20px;
+            border-radius: 24px;
             text-align: center;
             width: 100%;
-            max-width: 320px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border: 3px solid #ffb74d;
         }
 
         .puzzle-box h2 {
-            font-size: 1.2rem;
-            color: #333;
-            margin-bottom: 10px;
+            font-size: 1.3rem;
+            color: #d84315;
+            margin-bottom: 5px;
         }
 
-        /* ตารางจิ๊กซอว์ 3x3 */
+        .puzzle-box p {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        /* ตารางจิ๊กซอว์ 3x3 แบบสัดส่วนสมบูรณ์ ไม่บีบรูป */
         .puzzle-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 3px;
-            width: 270px;
-            height: 270px;
+            gap: 4px;
+            width: 300px;
+            height: 300px;
             margin: 0 auto 15px auto;
-            background: #ddd;
-            border: 2px solid #333;
+            background: #ffe0b2;
+            padding: 4px;
+            border-radius: 12px;
+            border: 2px solid #ff9800;
         }
 
         .puzzle-piece {
-            width: 90px;
-            height: 90px;
+            width: 96px;
+            height: 96px;
             background-image: url('photo1.jpg');
-            background-size: 270px 270px;
-            cursor: pointer;
-            border: 1px solid #fff;
-            transition: transform 0.2s;
+            background-size: 288px 288px; /* ขนาดรวมภาพต้นฉบับ 3x 96px */
+            cursor: grab;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.15s, box-shadow 0.15s;
         }
 
         .puzzle-piece:active {
+            cursor: grabbing;
+            transform: scale(0.96);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .puzzle-piece.selected {
+            border: 3px dashed #d84315;
             transform: scale(0.95);
         }
 
-        /* กล่องแสดงข้อความอธิษฐาน */
-        .wish-box {
+        /* เอฟเฟกต์พลุและโคมลอยฉลอง */
+        .celebration-overlay {
             position: absolute;
-            bottom: 30px;
-            left: 5%, right: 5%;
-            width: 90%;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 90;
             display: none;
-            z-index: 30;
-            text-align: center;
+            overflow: hidden;
         }
 
-        .wish-box p {
-            color: #2b2b2b;
-            font-size: 0.95rem;
-            line-height: 1.5;
+        .floating-lantern {
+            position: absolute;
+            width: 40px;
+            height: 60px;
+            background: rgba(255, 152, 0, 0.85);
+            border-radius: 20px 20px 10px 10px;
+            animation: flyUpLantern 4s linear infinite;
+            box-shadow: 0 0 15px #ff9800;
+        }
+
+        @keyframes flyUpLantern {
+            0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
+        }
+
+        /* กล่องข้อความอธิษฐาน เด้งตรงกลางหน้าจอพร้อมทรานซิชั่น */
+        .wish-modal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 150;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeInModal 0.3s ease forwards;
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .wish-box-center {
+            background: linear-gradient(135deg, #ffffff, #fff8e1);
+            width: 90%;
+            max-width: 360px;
+            padding: 25px 20px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            text-align: center;
+            border: 4px solid #ffca28;
+            transform: scale(0.7);
+            animation: popUpWish 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            position: relative;
+        }
+
+        @keyframes popUpWish {
+            to { transform: scale(1); }
+        }
+
+        .wish-box-center h3 {
+            color: #e65100;
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .wish-box-center p {
+            color: #37474f;
+            font-size: 1rem;
+            line-height: 1.6;
             white-space: pre-wrap;
+            min-height: 80px;
+        }
+
+        .close-wish-btn {
+            margin-top: 15px;
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+            color: #fff;
+            border: none;
+            padding: 8px 25px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(245,124,0,0.4);
         }
     </style>
 </head>
@@ -249,13 +347,13 @@
     <div class="mobile-container">
         <!-- ส่วนหัวบอกสถานะเกมเก็บกระทง -->
         <div class="ui-header" id="uiHeader">
-            <h1>ลอยกระทงกับเธอ</h1>
+            <h1>🌕 ลอยกระทงกับคนดี 🌸</h1>
             <p id="scoreText">เก็บกระทง: 0 / 20</p>
         </div>
 
-        <!-- แม่น้ำ (พื้นที่ 80% ด้านล่าง) -->
+        <!-- แม่น้ำ (พื้นที่ 70% ด้านล่าง) -->
         <div class="water-section" id="waterSection">
-            <!-- กระทงลอยมาเรื่อยๆ จะถูกสร้างด้วย JavaScript -->
+            <!-- กระทงลอยมาจะถูกสร้างด้วย JavaScript -->
         </div>
 
         <!-- กระทงใหญ่ที่จะโผล่มาเมื่อเก็บครบ 20 ชิ้น -->
@@ -263,24 +361,31 @@
             <div class="giant-krathong" id="giantKrathong">
                 <!-- เครื่องหมายคำถาม -->
                 <img src="nong.png" alt="Question" class="question-mark" id="questionMark">
-                <!-- รูปคู่ที่จะแสดงหลังต่อจิ๊กซอว์เสร็จ -->
+                <!-- รูปคู่ที่จะแสดงหลังต่อจิ๊กซอว์เสร็จ (ขยาย 80% ไม่มีกรอบวงกลม) -->
                 <img src="photo.png" alt="Couple Photo" class="couple-photo" id="couplePhoto">
             </div>
         </div>
 
-        <!-- กล่องข้อความอธิษฐาน ค่อยๆ พิมพ์ -->
-        <div class="wish-box" id="wishBox">
-            <p id="typedText"></p>
-        </div>
-
-        <!-- หน้าต่างเล่นเกมจิ๊กซอว์ -->
+        <!-- หน้าต่างเล่นเกมจิ๊กซอว์ดีไซน์วัยรุ่น -->
         <div class="modal-overlay" id="puzzleModal">
             <div class="puzzle-box">
-                <h2>ต่อภาพจิ๊กซอว์ให้สมบูรณ์</h2>
-                <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">คลิกที่ชิ้นส่วนเพื่อสลับตำแหน่ง</p>
+                <h2>🧩 ต่อจิ๊กซอว์สื่อรัก</h2>
+                <p>สลับชิ้นส่วนภาพให้ถูกต้องเพื่อเปิดกระทงเซอร์ไพรส์!</p>
                 <div class="puzzle-grid" id="puzzleGrid">
                     <!-- ชิ้นส่วนจิ๊กซอว์ -->
                 </div>
+            </div>
+        </div>
+
+        <!-- เอฟเฟกต์โคมลอยฉลอง -->
+        <div class="celebration-overlay" id="celebrationOverlay"></div>
+
+        <!-- กล่องข้อความอธิษฐานเด้งตรงกลางจอ -->
+        <div class="wish-modal" id="wishModal">
+            <div class="wish-box-center">
+                <h3>✨ คำอธิษฐานในคืนวันลอยกระทง ✨</h3>
+                <p id="typedText"></p>
+                <button class="close-wish-btn" onclick="closeWishModal()">ปิด</button>
             </div>
         </div>
     </div>
@@ -288,163 +393,4 @@
     <script>
         let score = 0;
         const targetScore = 20;
-        const waterSection = document.getElementById('waterSection');
-        const scoreText = document.getElementById('scoreText');
-        const uiHeader = document.getElementById('uiHeader');
-        const giantContainer = document.getElementById('giantContainer');
-        const questionMark = document.getElementById('questionMark');
-        const couplePhoto = document.getElementById('couplePhoto');
-        const puzzleModal = document.getElementById('puzzleModal');
-        const wishBox = document.getElementById('wishBox');
-        const typedText = document.getElementById('typedText');
-
-        let spawnInterval;
-
-        // 1. ฟังก์ชันสร้างกระทงลอยมาให้เก็บ
-        function spawnKrathong() {
-            if (score >= targetScore) return;
-
-            const krathong = document.createElement('div');
-            krathong.classList.add('floating-krathong');
-            
-            // สุ่มตำแหน่งแนวนอน
-            const randomX = Math.random() * (waterSection.clientWidth - 70);
-            krathong.style.left = randomX + 'px';
-            krathong.style.bottom = '-80px';
-
-            waterSection.appendChild(krathong);
-
-            // การเคลื่อนที่ขึ้นด้านบน
-            let currentBottom = -80;
-            const speed = 1.5 + Math.random() * 1.5;
-            
-            const moveInterval = setInterval(() => {
-                currentBottom += speed;
-                krathong.style.bottom = currentBottom + 'px';
-
-                // ถ้ารอยพ้นขอบบนของพื้นที่น้ำให้ลบออก
-                if (currentBottom > waterSection.clientHeight + 50) {
-                    clearInterval(moveInterval);
-                    krathong.remove();
-                }
-            }, 30);
-
-            // เมื่อคลิกเก็บกระทง
-            krathong.addEventListener('click', (e) => {
-                e.stopPropagation();
-                score++;
-                scoreText.innerText = `เก็บกระทง: ${score} / ${targetScore}`;
-                clearInterval(moveInterval);
-                krathong.remove();
-
-                // ตรวจสอบว่าครบ 20 ชิ้นหรือยัง
-                if (score >= targetScore) {
-                    endMinigame();
-                }
-            });
-        }
-
-        // เริ่มต้นสร้างกระทงเรื่อยๆ
-        spawnInterval = setInterval(spawnKrathong, 800);
-
-        // เมื่อเก็บครบ 20 ชิ้น
-        function endMinigame() {
-            clearInterval(spawnInterval);
-            // ลบกระทงเล็กที่เหลืออยู่ทั้งหมด
-            document.querySelectorAll('.floating-krathong').forEach(k => k.remove());
-            uiHeader.style.display = 'none';
-            
-            // แสดงกระทงใหญ่
-            giantContainer.style.display = 'block';
-        }
-
-        // 2. เมื่อกดที่เครื่องหมายคำถาม เปิดเกมจิ๊กซอว์
-        questionMark.addEventListener('click', () => {
-            puzzleModal.style.display = 'flex';
-            initPuzzle();
-        });
-
-        // ระบบจิ๊กซอว์ 3x3
-        let puzzlePieces = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-        let currentOrder = [...puzzlePieces];
-        let selectedIndex = null;
-
-        function initProvider() {
-            // สุ่มสลับตำแหน่ง
-            do {
-                currentOrder.sort(() => Math.random() - 0.5);
-            } while (isSorted(currentOrder)); // ป้องกันสุ่มแล้วถูกตั้งแต่แรก
-            renderPuzzle();
-        }
-
-        function isSorted(arr) {
-            return arr.every((val, i) => val === puzzlePieces[i]);
-        }
-
-        function initPuzzle() {
-            currentOrder = [...puzzlePieces];
-            currentOrder.sort(() => Math.random() - 0.5);
-            renderPuzzle();
-        }
-
-        function renderPuzzle() {
-            const grid = document.getElementById('puzzleGrid');
-            grid.innerHTML = '';
-
-            currentOrder.forEach((pieceIndex, currentIndex) => {
-                const piece = document.createElement('div');
-                piece.classList.add('puzzle-piece');
-                
-                // คำนวณตำแหน่ง Background-image เพื่อตัดรูปให้ตรงกับชิ้นส่วน
-                const x = (pieceIndex % 3) * 90;
-                const y = Math.floor(pieceIndex / 3) * 90;
-                piece.style.backgroundPosition = `-${x}px -${y}px`;
-
-                piece.addEventListener('click', () => {
-                    if (selectedIndex === null) {
-                        selectedIndex = currentIndex;
-                        piece.style.border = '2px solid #ffcc00';
-                    } else {
-                        // สลับตำแหน่งชิ้นส่วน
-                        let temp = currentOrder[selectedIndex];
-                        currentOrder[selectedIndex] = currentOrder[currentIndex];
-                        currentOrder[currentIndex] = temp;
-                        selectedIndex = null;
-                        renderPuzzle();
-
-                        // ตรวจสอบว่าเรียงถูกต้องครบหรือยัง
-                        if (isSorted(currentOrder)) {
-                            setTimeout(() => {
-                                puzzleModal.style.display = 'none';
-                                // ซ่อนเครื่องหมายคำถาม แสดงรูปคู่
-                                questionMark.style.display = 'none';
-                                couplePhoto.style.display = 'block';
-                            }, 300);
-                        }
-                    }
-                });
-
-                grid.appendChild(piece);
-            });
-        }
-
-        // 3. เมื่อกดที่รูปคู่ แสดงข้อความอธิษฐานพิมพ์ทีละตัวอักษร
-        const wishMessage = "สุขสันต์วันลอยกระทงนะคับคนดี ขอให้คำอธิษฐานในกระทงนี้ นำพาความสุข ความรัก และสิ่งดีๆ มาให้เราอยู่ด้วยกันแบบนี้ไปนานๆ รักเธอนะคะ ❤️";
-        let isTypingStarted = false;
-
-        couplePhoto.addEventListener('click', () => {
-            if (isTypingStarted) return;
-            isTypingStarted = true;
-            wishBox.style.display = 'block';
-            typeWriter(wishMessage, 0);
-        });
-
-        function typeWriter(text, i) {
-            if (i < text.length) {
-                typedText.innerHTML += text.charAt(i);
-                setTimeout(() => typeWriter(text, i + 1), 70);
-            }
-        }
-    </script>
-</body>
-</html>
+        const
