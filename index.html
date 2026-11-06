@@ -167,17 +167,17 @@
             50% { transform: translateX(-50%) scale(1.06); }
         }
 
-        /* ข้อความล่างสุด (ไม่มีกรอบ ไม่มีปุ่ม) */
+        /* ข้อความล่างสุดเปลี่ยนเป็นสีขาวเรียบร้อยแล้ว */
         .bottom-hint-text {
             position: absolute;
             bottom: 25px;
             width: 100%;
             text-align: center;
-            color: #d81b60;
+            color: #ffffff;
             font-size: 0.95rem;
             font-weight: 600;
             z-index: 30;
-            text-shadow: 0 1px 3px rgba(255,255,255,0.9);
+            text-shadow: 0 1px 4px rgba(0,0,0,0.8);
             animation: textPulse 1.5s infinite ease-in-out;
             pointer-events: none;
             display: none;
@@ -393,8 +393,8 @@
             </div>
         </div>
 
-        <!-- ข้อความล่างสุด (เริ่มต้นแสดง "แตะหน้าจอเพื่อเริ่มเพลง 🎶" แล้วจะเปลี่ยนเป็น "ลองแตะที่รูปของเราดูสิ 👆" เมื่อต่อจิ๊กซอว์เสร็จ) -->
-        <div class="bottom-hint-text" id="bottomHintText">แตะหน้าจอเพื่อเริ่มเพลง 🎶</div>
+        <!-- ข้อความล่างสุด (สีขาว) -->
+        <div class="bottom-hint-text" id="bottomHintText"></div>
 
         <div class="modal-overlay" id="puzzleModal">
             <div class="puzzle-box">
@@ -423,7 +423,7 @@
         const bgMusic = document.getElementById('bgMusic');
         const bottomHintText = document.getElementById('bottomHintText');
         
-        // แสดงข้อความ "แตะหน้าจอเพื่อเริ่มเพลง 🎶" ไว้ที่ด้านล่างสุดตอนเริ่มเปิดเว็บ
+        // แสดงข้อความ "แตะหน้าจอเพื่อเริ่มเพลง" ไว้ที่ด้านล่างสุดตอนเริ่มเปิดเว็บ
         bottomHintText.style.display = 'block';
 
         let isMusicStarted = false;
@@ -431,7 +431,6 @@
             if (bgMusic.paused) {
                 bgMusic.play().catch(e => {});
             }
-            // เมื่อมีการแตะหน้าจอครั้งแรกและยังเก็บกระทงไม่ครบ ให้ซ่อนข้อความเริ่มเพลง
             if (!isMusicStarted && score < targetScore) {
                 isMusicStarted = true;
                 bottomHintText.style.display = 'none';
@@ -665,8 +664,8 @@
                 questionMark.style.display = 'none';
                 couplePhoto.style.display = 'block';
                 
-                // เปลี่ยนข้อความเป็น "ลองแตะที่รูปของเราดูสิ 👆" ไว้ที่ด้านล่างสุด
-                bottomHintText.innerText = "ลองแตะที่รูปของเราดูสิ 👆";
+                // เปลี่ยนข้อความเป็น "ลองแตะที่รูปของเราดูสิ" (สีขาว) ไว้ที่ด้านล่างสุด
+                bottomHintText.innerText = "ลองแตะที่รูปของเราดูสิ";
                 bottomHintText.style.display = 'block';
 
                 startAmbientFireworks();
@@ -744,7 +743,7 @@
             }, 1500);
         }
 
-        const wishMessage = "สุขสันต์วันลอยกระทงนะคะคนดี<br><br>ขอให้กระทงนี้และแสงพลุนี้<br>นำพาความสุข ความรัก และเรื่องราวดีๆ<br>มาให้เราได้จับมือ<br>อยู่เคียงข้างกันแบบนี้ตลอดไป<br><br>รักเธอที่สุดเลยนะ ❤️";
+        const wishMessage = "สุขสันต์วันลอยกระทงนะคะคนดี\n\nขอให้กระทงนี้และแสงพลุนี้\nนำพาความสุข ความรัก และเรื่องราวดีๆ\nมาให้เราได้จับมือ\nอยู่เคียงข้างกันแบบนี้ตลอดไป\n\nรักเธอที่สุดเลยนะ ❤️";
         let isTypingStarted = false;
 
         couplePhoto.addEventListener('click', () => {
