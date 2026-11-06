@@ -107,10 +107,6 @@
             100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
-        /* 
-          จุดที่แก้ไข: ขยายขนาดกระทงใหญ่ให้ใหญ่ขึ้นอีกนิด (จาก 338px เป็น 400px) 
-          เพื่อให้รับกับรูปภาพ 9:16 ได้พอดี ไม่ให้รูปหลุดล้นออกจากตัวกระทง
-        */
         .giant-krathong {
             width: 400px;
             height: 400px;
@@ -147,9 +143,12 @@
             50% { transform: translateX(-50%) scale(1.15); }
         }
 
+        /* 
+          จุดที่แก้ไข: ขยับ top ลงมาอีกนิดเดียวจากเดิม (-110px เป็น -100px) 
+        */
         .couple-photo {
             position: absolute;
-            top: -110px; 
+            top: -100px; 
             left: 50%;
             transform: translateX(-50%);
             width: 140px;
