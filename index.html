@@ -167,29 +167,25 @@
             50% { transform: translateX(-50%) scale(1.06); }
         }
 
-        /* กล่องข้อความแนะนำให้แตะรูป */
-        .hint-text-box {
+        /* ข้อความล่างสุด (ไม่มีกรอบ ไม่มีปุ่ม) */
+        .bottom-hint-text {
             position: absolute;
-            top: -145px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.95);
-            padding: 6px 16px;
-            border-radius: 15px;
-            border: 2px solid #ff69b4;
+            bottom: 25px;
+            width: 100%;
+            text-align: center;
             color: #d81b60;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            box-shadow: 0 4px 10px rgba(216, 27, 96, 0.3);
-            white-space: nowrap;
-            display: none;
             z-index: 30;
-            animation: bounceHint 1s infinite ease-in-out;
+            text-shadow: 0 1px 3px rgba(255,255,255,0.9);
+            animation: textPulse 1.5s infinite ease-in-out;
+            pointer-events: none;
+            display: none;
         }
 
-        @keyframes bounceHint {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-5px); }
+        @keyframes textPulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
         }
 
         .modal-overlay {
@@ -392,11 +388,13 @@
 
         <div class="giant-krathong-container" id="giantContainer">
             <div class="giant-krathong" id="giantKrathong">
-                <div class="hint-text-box" id="hintTextBox">ลองแตะที่รูปของเราดูสิ 👆</div>
                 <img src="nong.png" alt="Question" class="question-mark" id="questionMark" onerror="this.style.background='#ffb6c1';this.style.borderRadius='50%';">
                 <img src="photo.png" alt="Couple Photo" class="couple-photo" id="couplePhoto">
             </div>
         </div>
+
+        <!-- ข้อความล่างสุด (เริ่มต้นแสดง "แตะหน้าจอเพื่อเริ่มเพลง 🎶" แล้วจะเปลี่ยนเป็น "ลองแตะที่รูปของเราดูสิ 👆" เมื่อต่อจิ๊กซอว์เสร็จ) -->
+        <div class="bottom-hint-text" id="bottomHintText">แตะหน้าจอเพื่อเริ่มเพลง 🎶</div>
 
         <div class="modal-overlay" id="puzzleModal">
             <div class="puzzle-box">
@@ -423,11 +421,22 @@
 
     <script>
         const bgMusic = document.getElementById('bgMusic');
+        const bottomHintText = document.getElementById('bottomHintText');
+        
+        // แสดงข้อความ "แตะหน้าจอเพื่อเริ่มเพลง 🎶" ไว้ที่ด้านล่างสุดตอนเริ่มเปิดเว็บ
+        bottomHintText.style.display = 'block';
+
+        let isMusicStarted = false;
         document.body.addEventListener('click', () => {
             if (bgMusic.paused) {
                 bgMusic.play().catch(e => {});
             }
-        }, { once: true });
+            // เมื่อมีการแตะหน้าจอครั้งแรกและยังเก็บกระทงไม่ครบ ให้ซ่อนข้อความเริ่มเพลง
+            if (!isMusicStarted && score < targetScore) {
+                isMusicStarted = true;
+                bottomHintText.style.display = 'none';
+            }
+        }, { once: false });
 
         function playPopSound() {
             try {
@@ -458,7 +467,6 @@
         const giantContainer = document.getElementById('giantContainer');
         const questionMark = document.getElementById('questionMark');
         const couplePhoto = document.getElementById('couplePhoto');
-        const hintTextBox = document.getElementById('hintTextBox');
         const puzzleModal = document.getElementById('puzzleModal');
         const fireworksContainer = document.getElementById('fireworksContainer');
         const wishModal = document.getElementById('wishModal');
@@ -656,7 +664,11 @@
                 puzzleModal.style.display = 'none';
                 questionMark.style.display = 'none';
                 couplePhoto.style.display = 'block';
-                hintTextBox.style.display = 'block'; // แสดงข้อความแนะนำให้แตะรูป
+                
+                // เปลี่ยนข้อความเป็น "ลองแตะที่รูปของเราดูสิ 👆" ไว้ที่ด้านล่างสุด
+                bottomHintText.innerText = "ลองแตะที่รูปของเราดูสิ 👆";
+                bottomHintText.style.display = 'block';
+
                 startAmbientFireworks();
             }, 4000);
         }
@@ -736,7 +748,7 @@
         let isTypingStarted = false;
 
         couplePhoto.addEventListener('click', () => {
-            hintTextBox.style.display = 'none'; // ซ่อนข้อความแนะนำเมื่อกดที่รูปแล้ว
+            bottomHintText.style.display = 'none'; // ซ่อนข้อความเมื่อกดที่รูปแล้ว
             wishModal.style.display = 'flex';
             if (!isTypingStarted) {
                 isTypingStarted = true;
